@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import os
 
@@ -26,6 +26,12 @@ def upload_image():
     # Your additional processing logic here
 
     return jsonify({'imageUrl': filename})
+
+@app.route('/get_uploaded_image', methods=['GET'])
+def get_uploaded_image():
+    # Return the saved image to the client
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'uploaded_image.png')
+    return send_file(image_path, mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(debug=True)
