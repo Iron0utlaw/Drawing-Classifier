@@ -12,9 +12,9 @@ CORS(app)
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-a = len(os.listdir(f"{UPLOAD_FOLDER}/A"))
-b = len(os.listdir(f"{UPLOAD_FOLDER}/B"))
-c = len(os.listdir(f"{UPLOAD_FOLDER}/C"))
+a = 0
+b = 0
+c = 0
 clf = LinearSVC()
 
 def get_folder_name(route):
@@ -31,11 +31,11 @@ def generate_unique_filename(subfolder):
     elif subfolder == "C":
         c += 1
         return f"image_{c}.png"
-    else: return "image.png"
+    else: return f"image.png"
     
 @app.route('/', methods=['GET'])
 def home():
-    print(len(os.listdir(f"{UPLOAD_FOLDER}/A")),len(os.listdir(f"{UPLOAD_FOLDER}/B")),len(os.listdir(f"{UPLOAD_FOLDER}/C")))
+    print(a,b,c)
     return "Backend Live"
 
 @app.route('/uploadA', methods=['POST'])
@@ -72,11 +72,7 @@ def upload_image(subfolder):
 
 @app.route('/train')
 def train():
-    global clf
-    
-    a = len(os.listdir(f"{UPLOAD_FOLDER}/A"))
-    b = len(os.listdir(f"{UPLOAD_FOLDER}/B"))
-    c = len(os.listdir(f"{UPLOAD_FOLDER}/C"))
+    global a, b, c, clf
 
     img_list = np.array([])
     class_list = np.array([])
