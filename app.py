@@ -31,11 +31,11 @@ def generate_unique_filename(subfolder):
     elif subfolder == "C":
         c += 1
         return f"image_{c}.png"
-    else: return f"image.png"
+    else: return "image.png"
     
 @app.route('/', methods=['GET'])
 def home():
-    print(a,b,c)
+    print(len(os.listdir(f"{UPLOAD_FOLDER}/A")),len(os.listdir(f"{UPLOAD_FOLDER}/B")),len(os.listdir(f"{UPLOAD_FOLDER}/C")))
     return "Backend Live"
 
 @app.route('/uploadA', methods=['POST'])
@@ -72,7 +72,11 @@ def upload_image(subfolder):
 
 @app.route('/train')
 def train():
-    global a, b, c, clf
+    global clf
+    
+    a = len(os.listdir(f"{UPLOAD_FOLDER}/A"))
+    b = len(os.listdir(f"{UPLOAD_FOLDER}/B"))
+    c = len(os.listdir(f"{UPLOAD_FOLDER}/C"))
 
     img_list = np.array([])
     class_list = np.array([])
