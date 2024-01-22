@@ -32,11 +32,6 @@ def generate_unique_filename(subfolder):
         c += 1
         return f"image_{c}.png"
     else: return f"image.png"
-    
-@app.route('/', methods=['GET'])
-def home():
-    print(a,b,c)
-    return "Backend Live"
 
 @app.route('/uploadA', methods=['POST'])
 def upload_image_A():
@@ -102,6 +97,9 @@ def train():
     
     return jsonify({'status': "OK"})
 
+@app.route('/')
+def home():
+    return "Backend Live"
 
 @app.route('/pred')
 def pred():
